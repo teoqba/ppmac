@@ -9,6 +9,11 @@
               remotely.
               Additionally does simple file operations through SFTP.
 .. moduleauthor:: Ken Lauer <klauer@bnl.gov>
+
+14/06/2016 - Kuba Kaminski: changes in def vlog(): 
+                * logging to file disabled
+                * setting verbose = True enables logging
+                * setting verbose = False disables all logging
 """
 
 from __future__ import print_function
@@ -71,12 +76,17 @@ def vlog(verbose, *args, **kwargs):
     Print output to kwarg `file` if `verbose` is set
 
     Outputs to the module logger at the debug level in all cases
+    
+    14/06/2016 Kuba Kaminski:
+    Don't print output to the file.
+    Log only when verbose is set to True
     '''
-    if verbose:
-        print(*args, **kwargs)
 
-    kwargs.pop('file', '')
-    logger.debug(*args, **kwargs)
+    if verbose:
+        # print(*args, **kwargs)
+
+        kwargs.pop('file', '')
+        logger.debug(*args, **kwargs)
 
 
 def _wait_for(generator, wait_pattern,
